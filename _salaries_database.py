@@ -37,7 +37,7 @@ class _salaries_database:
                 info =  dict()
 
                 for i in range(len(columns)):
-                    if employee[i].replace(".", "").isdigit():
+                    if employee[i].replace(".", "").replace("-", "").isdigit():
                         info[columns[i]] = float(employee[i])
                     else:
                         info[columns[i]] = employee[i]
@@ -51,12 +51,15 @@ class _salaries_database:
 
                 self.employees[info['Id']] = info
 
+    # Return a dictionary of info on the employee with that eid
     def get_employee(self, eid):
         return self.employees.get(eid)
 
+    # Return a list of eids
     def get_employees(self):
         return self.employees.keys()
 
+    # Set the employee with eid
     def set_employee(self, eid, data):
         # If employee exist under eid, remove the eid from its job's list
         if self.employees.get(eid):
@@ -71,10 +74,11 @@ class _salaries_database:
         except KeyError:
             self.jobs[data['JobTitle']] = [data['Id']]
 
-
+    # Delete the employee specified by eid
     def delete_employee(self, eid):
         del self.employees[eid]
 
+    # Clear self.smployee
     def delete_all_employees(self):
         self.employees.clear()
 
@@ -111,17 +115,60 @@ class _salaries_database:
                 except KeyError:
                     self.jobs[employee[2]] = [float(employee[0])]
 
+    # Returns a list of jobs
     def get_jobs(self):
         return self.jobs.keys()
 
+    # Returns a list of eid of employee under the job title
     def get_job(self, JobTitle):
         return self.jobs[JobTitle]
 
-"""
-database = _salaries_database()
-database.load_employees("Salaries.csv")
-database.load_jobs("Salaries.csv")
+    # Return average salary of a job
+    def get_average_totalpay(self, JobTitle):
+        avg_pay = 0
 
-print(database.get_job("CAPTAIN III (POLICE DEPARTMENT)"))
+        for eid in self.jobs[JobTitle]:
+            avg_pay += self.employees[eid]['TotalPay']
 
-print(database.get_jobs())"""
+        avg_pay /= len(self.jobs[JobTitle])
+
+        return avg_pay
+
+    # Return average BasePay of a job
+    def get_average_basepay(self, JobTitle):
+        avg_pay = 0
+
+        for eid in self.jobs[JobTitle]:
+            print(self.employees[eid])
+            avg_pay += self.employees[eid]['BasePay']
+
+        avg_pay /= len(self.jobs[JobTitle])
+
+        return avg_pay
+
+    # Return a dictionary of "BestSalary" and "BestJob", calculated using TotalPay
+    def get_best_salary_job(self):
+        result = {'BestSalary': 0, 'BestJob': ""}
+
+        # Loop through each jobs in database
+        for job_title in  self.get_jobs():
+            # Calculate average salary for each job
+            avg_salary = self.get_average_totalpay(job_title)
+
+            if avg_salary > result['BestSalary']:
+                result['BestSalary'] = avg_salary
+                result['BestJob'] = job_title
+
+        return result
+
+    # Return a dictionary of "MostPopularJob", "EmployeeCount:"
+    def get_most_popular_job(self):
+        result = {'MostPopularJob': "", 'EmployeeCount': 0}
+
+        # Loop through each jobs in database
+        for job_title in self.get_jobs():
+            if len(self.jobs[job_title]) > result['EmployeeCount']:
+                result['EmployeeCount'] = len(self.jobs[job_title])
+                result['MostPopularJob'] = job_title
+
+        return result

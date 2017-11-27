@@ -18,6 +18,11 @@ class TestSalariesDatabase(unittest.TestCase):
         self.assertEqual(employee['JobTitle'], "GENERAL MANAGER-METROPOLITAN TRANSIT AUTHORITY")
         self.assertEqual(employee['BasePay'], 167411.18)
 
+    def test_get_employee_null(self):
+        self.reset_data()
+        employee = self.sdb.get_employee(200000)
+        self.assertEqual(employee, None)
+
     def test_set_employee(self):
         self.reset_data()
         employee = self.sdb.get_employee(1)
@@ -46,6 +51,23 @@ class TestSalariesDatabase(unittest.TestCase):
         self.sdb.set_employee(2.0, employee)
         job = self.sdb.get_job("Software Engineering Intern")
         self.assertEqual(job[0], 2.0)
+
+    def test_get_average_totalpay(self):
+        self.reset_data()
+        self.assertEqual(self.sdb.get_average_totalpay("Farmer"), 56826.85)
+
+    def test_get_average_basepay(self):
+        self.reset_data()
+        self.assertEqual(self.sdb.get_average_basepay("Farmer"), 56712.78333333333)
+
+    def test_get_best_salary_job(self):
+        self.reset_data()
+        self.assertEqual(self.sdb.get_best_salary_job()["BestJob"], "GENERAL MANAGER-METROPOLITAN TRANSIT AUTHORITY")
+
+    def test_get_most_popular_job(self):
+        self.reset_data()
+        self.assertEqual(self.sdb.get_most_popular_job()["MostPopularJob"], "Transit Operator")
+
 
 if __name__ == "__main__":
     unittest.main()
