@@ -139,7 +139,6 @@ class _salaries_database:
         avg_pay = 0
 
         for eid in self.jobs[JobTitle]:
-            print(self.employees[eid])
             avg_pay += self.employees[eid]['BasePay']
 
         avg_pay /= len(self.jobs[JobTitle])
