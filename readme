@@ -1,0 +1,18 @@
+We chose to design our API on the San Francisco Salaries Database. It has two
+main dictionaries to store the data.
+
+The first dictionary is named "employees".
+It provides access to the information on every employee in the database which
+includes Id, EmployeeName, JobTitle, BasePay, TotalPay, Year and Agency. The
+database allows basic access to the dictionary such as getting information on a
+specific employee, getting all employee ids, setting an employee infomation,
+deleting a specific employee or clearing the entire dictionary
+
+The second dictionary is named "jobs".
+This dictionary allows the employee informations to be processed and provide
+more interesting information to the user. It can list all jobs in the database,
+get all employee ids of a specific job, get average total pay and base pay, get
+the job with the best salary, and get the most popular job.
+
+This API allows user to access and modify the database while getting more
+updated informations on job prospect in San Francisco
