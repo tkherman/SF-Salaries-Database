@@ -185,6 +185,7 @@ class SalaryKeyController(object):
 
         return json.dumps(output)
 
+
 def start_service():
     sdb = _salaries_database()
 

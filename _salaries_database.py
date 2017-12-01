@@ -85,6 +85,7 @@ class _salaries_database:
     # Clear self.smployee
     def delete_all_employees(self):
         self.employees.clear()
+        self.jobs.clear()
 
     """
         JOBS
