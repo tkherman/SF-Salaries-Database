@@ -190,9 +190,12 @@ class ResetController(object):
         self.sdb = sdb
 
     def PUT(self):
+        output = {'result': 'success'}
         self.sdb.delete_all_employees()
-        self.load_employees("Salaries.csv")
-        self.load_jobs("Salaries.csv")
+        self.sdb.load_employees("Salaries.csv")
+        self.sdb.load_jobs("Salaries.csv")
+
+        return json.dumps(output)
 
 
 def start_service():
