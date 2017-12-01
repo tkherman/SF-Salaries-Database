@@ -176,7 +176,7 @@ class SalaryKeyController(object):
 
         # Get salary while catching exception for if jobtitle is not valid
         try:
-            salary = self.sdb.get_average_totalpay()
+            salary = self.sdb.get_average_totalpay(jobtitle)
             output['JobTitle'] = jobtitle
             output['AverageSalary'] = salary
         except KeyError as ex:
@@ -228,11 +228,9 @@ def start_service():
 
     dispatcher.connect('jobs_get', '/jobs/', controller=jobController, action='GET', conditions=dict(method=['GET']))
 
-    dispatcher.connect('jobs_post', '/jobs/', controller=jobController, action='POST', conditions=dict(method=['POST']))
-
     dispatcher.connect('jobs_get_key', '/jobs/:jobtitle', controller=jobKeyController, action='GET', conditions=dict(method=['GET']))
 
-    dispatcher.connect('jobs_put_key', '/jobs/:jobtitle', controller=jobKeyController, action='PUT', conditions=dict(method=['PUT']))
+    dispatcher.connect('jobs_delete_key', '/jobs/:jobtitle', controller=jobKeyController, action='DELETE', conditions=dict(method=['DELETE']))
 
     dispatcher.connect('salaries_get', '/salaries/', controller=salaryController, action='GET', conditions=dict(method=['GET']))
 
