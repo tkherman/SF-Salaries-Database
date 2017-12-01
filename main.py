@@ -112,7 +112,7 @@ class JobController(object):
         output = {'result':'success'}
 
         # Providie a list of job titles
-        output['JobTitles'] = self.sdb.get_jobs()
+        output['JobTitles'] = list(self.sdb.get_jobs())
 
         return json.dumps(output)
 
@@ -185,6 +185,15 @@ class SalaryKeyController(object):
 
         return json.dumps(output)
 
+class ResetController(object):
+    def __init__(self, sdb = None):
+        self.sdb = sdb
+
+    def PUT(self):
+        self.sdb.delete_all_employees()
+        self.load_employees("Salaries.csv")
+        self.load_jobs("Salaries.csv")
+
 
 def start_service():
     sdb = _salaries_database()
@@ -198,6 +207,7 @@ def start_service():
     jobKeyController = JobKeyController(sdb=sdb)
     salaryController = SalaryController(sdb=sdb)
     salaryKeyController = SalaryKeyController(sdb=sdb)
+    resetController = ResetController(sdb=sdb)
 
     dispatcher = cherrypy.dispatch.RoutesDispatcher()
 
@@ -224,6 +234,8 @@ def start_service():
     dispatcher.connect('salaries_get', '/salaries/', controller=salaryController, action='GET', conditions=dict(method=['GET']))
 
     dispatcher.connect('salaries_get_key', '/salaries/:jobtitle', controller=salaryKeyController, action='GET', conditions=dict(method=['GET']))
+
+    dispatcher.connect('reset', '/reset/', controller=resetController, action='PUT', conditions=dict(method=['PUT']))
 
     conf = {
         'global': {
