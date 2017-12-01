@@ -121,16 +121,9 @@ class JobKeyController(object):
 	def __init__(self, sdb = None):
 		self.sdb = sdb
 
-<<<<<<< HEAD
 	def GET(self, jobtitle):
 		output = {'result':'success'}
 		jobtitle = urllib.parse.unquote(jobtitle)
-=======
-    def GET(self, jobtitle):
-        output = {'result':'success'}
-        # decode job title from url
-        jobtitle = urllib.parse.unquote(jobtitle)
->>>>>>> f7162aa7367064101fddb743348057f967db9bdc
 
 		try:
 			data = self.sdb.get_job(jobtitle)
@@ -144,16 +137,9 @@ class JobKeyController(object):
 
 		return json.dumps(output)
 
-<<<<<<< HEAD
 	def DELETE(self, jobtitle):
 		output = {'result': 'success'}
 		jobtitle = urllib.parse.unquote(jobtitle)
-=======
-    def DELETE(self, jobtitle):
-        output = {'result': 'success'}
-        # decode job title from url
-        jobtitle = urllib.parse.unquote(jobtitle)
->>>>>>> f7162aa7367064101fddb743348057f967db9bdc
 
 		try:
 			Ids = self.sdb.get_job(jobtitle)
@@ -173,7 +159,6 @@ class SalaryController(object):
 
 	def GET(self):
 		output = {'result':'success'}
-
 		bestsalary = self.sdb.get_best_salary_job()
 		output['BestSalary'] = bestsalary['BestSalary']
 		output['BestJob'] = bestsalary['BestJob']
@@ -188,7 +173,6 @@ class SalaryKeyController(object):
 		output = {'result':'success'}
 		jobtitle = urllib.parse.unquote(jobtitle)
 
-<<<<<<< HEAD
 		# Get salary while catching exception for if jobtitle is not valid
 		try:
 			salary = self.sdb.get_average_totalpay()
@@ -197,16 +181,6 @@ class SalaryKeyController(object):
 		except KeyError as ex:
 			output['result'] = 'error'
 			output['message'] = "JobTitle is not valid"
-=======
-        # Get salary while catching exception for if jobtitle is not valid
-        try:
-            salary = self.sdb.get_average_totalpay(jobtitle)
-            output['JobTitle'] = jobtitle
-            output['AverageSalary'] = salary
-        except KeyError as ex:
-            output['result'] = 'error'
-            output['message'] = "JobTitle is not valid"
->>>>>>> f7162aa7367064101fddb743348057f967db9bdc
 
 		return json.dumps(output)
 
@@ -214,37 +188,21 @@ class ResetController(object):
 	def __init__(self, sdb = None):
 		self.sdb = sdb
 
-<<<<<<< HEAD
 	def PUT(self):
 		output = {'result': 'success'}
 		self.sdb.delete_all_employees()
 		self.sdb.load_employees("Salaries.csv")
 		self.sdb.load_jobs("Salaries.csv")
-=======
-    def PUT(self):
-        output = {'result': 'success'}
-        # delete_all_employees also wipe the jobs database
-        self.sdb.delete_all_employees()
-        # reload the two dictionaries
-        self.sdb.load_employees("Salaries.csv")
-        self.sdb.load_jobs("Salaries.csv")
->>>>>>> f7162aa7367064101fddb743348057f967db9bdc
 
 		return json.dumps(output)
 
 
 def start_service():
-<<<<<<< HEAD
 	sdb = _salaries_database()
-=======
-    # Create an instance of database
-    sdb = _salaries_database()
->>>>>>> f7162aa7367064101fddb743348057f967db9bdc
 
 	sdb.load_employees('Salaries.csv')
 	sdb.load_jobs('Salaries.csv')
 
-<<<<<<< HEAD
 	employeeController = EmployeeController(sdb=sdb)
 	employeeKeyController = EmployeeKeyController(sdb=sdb)
 	jobController = JobController(sdb=sdb)
@@ -252,25 +210,10 @@ def start_service():
 	salaryController = SalaryController(sdb=sdb)
 	salaryKeyController = SalaryKeyController(sdb=sdb)
 	resetController = ResetController(sdb=sdb)
-=======
-    # Instantiate controllers
-    employeeController = EmployeeController(sdb=sdb)
-    employeeKeyController = EmployeeKeyController(sdb=sdb)
-    jobController = JobController(sdb=sdb)
-    jobKeyController = JobKeyController(sdb=sdb)
-    salaryController = SalaryController(sdb=sdb)
-    salaryKeyController = SalaryKeyController(sdb=sdb)
-    resetController = ResetController(sdb=sdb)
->>>>>>> f7162aa7367064101fddb743348057f967db9bdc
 
 	dispatcher = cherrypy.dispatch.RoutesDispatcher()
 
-<<<<<<< HEAD
 	dispatcher.connect('employees_get', '/employees/', controller=employeeController, action='GET', conditions=dict(method=['GET']))
-=======
-    # Connect controllers
-    dispatcher.connect('employees_get', '/employees/', controller=employeeController, action='GET', conditions=dict(method=['GET']))
->>>>>>> f7162aa7367064101fddb743348057f967db9bdc
 
 	dispatcher.connect('employees_get_key', '/employees/:eid', controller=employeeKeyController, action='GET', conditions=dict(method=['GET']))
 
@@ -284,17 +227,11 @@ def start_service():
 
 	dispatcher.connect('jobs_get', '/jobs/', controller=jobController, action='GET', conditions=dict(method=['GET']))
 
-<<<<<<< HEAD
 	dispatcher.connect('jobs_post', '/jobs/', controller=jobController, action='POST', conditions=dict(method=['POST']))
 
 	dispatcher.connect('jobs_get_key', '/jobs/:jobtitle', controller=jobKeyController, action='GET', conditions=dict(method=['GET']))
 
 	dispatcher.connect('jobs_put_key', '/jobs/:jobtitle', controller=jobKeyController, action='PUT', conditions=dict(method=['PUT']))
-=======
-    dispatcher.connect('jobs_get_key', '/jobs/:jobtitle', controller=jobKeyController, action='GET', conditions=dict(method=['GET']))
-
-    dispatcher.connect('jobs_delete_key', '/jobs/:jobtitle', controller=jobKeyController, action='DELETE', conditions=dict(method=['DELETE']))
->>>>>>> f7162aa7367064101fddb743348057f967db9bdc
 
 	dispatcher.connect('salaries_get', '/salaries/', controller=salaryController, action='GET', conditions=dict(method=['GET']))
 
