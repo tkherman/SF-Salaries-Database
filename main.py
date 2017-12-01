@@ -123,6 +123,7 @@ class JobKeyController(object):
 
     def GET(self, jobtitle):
         output = {'result':'success'}
+        # decode job title from url
         jobtitle = urllib.parse.unquote(jobtitle)
 
         try:
@@ -139,6 +140,7 @@ class JobKeyController(object):
 
     def DELETE(self, jobtitle):
         output = {'result': 'success'}
+        # decode job title from url
         jobtitle = urllib.parse.unquote(jobtitle)
 
         try:
@@ -191,7 +193,9 @@ class ResetController(object):
 
     def PUT(self):
         output = {'result': 'success'}
+        # delete_all_employees also wipe the jobs database
         self.sdb.delete_all_employees()
+        # reload the two dictionaries
         self.sdb.load_employees("Salaries.csv")
         self.sdb.load_jobs("Salaries.csv")
 
@@ -199,11 +203,13 @@ class ResetController(object):
 
 
 def start_service():
+    # Create an instance of database
     sdb = _salaries_database()
 
     sdb.load_employees('Salaries.csv')
     sdb.load_jobs('Salaries.csv')
 
+    # Instantiate controllers
     employeeController = EmployeeController(sdb=sdb)
     employeeKeyController = EmployeeKeyController(sdb=sdb)
     jobController = JobController(sdb=sdb)
@@ -214,6 +220,7 @@ def start_service():
 
     dispatcher = cherrypy.dispatch.RoutesDispatcher()
 
+    # Connect controllers
     dispatcher.connect('employees_get', '/employees/', controller=employeeController, action='GET', conditions=dict(method=['GET']))
 
     dispatcher.connect('employees_get_key', '/employees/:eid', controller=employeeKeyController, action='GET', conditions=dict(method=['GET']))
