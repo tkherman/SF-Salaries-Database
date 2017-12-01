@@ -21,7 +21,7 @@ class TestEmployees(unittest.TestCase):
 		except ValueError:
 			return False
 
-	def test_movies_delete(self):
+	def test_employees_delete(self):
 		self.reset_data()
 		employee_id = 30.0
 

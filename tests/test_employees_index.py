@@ -40,7 +40,7 @@ class TestEmployees(unittest.TestCase):
 		self.assertEqual(testemployee['Year'], 2011.0)
 		self.assertEqual(testemployee['Agency'], 'San Francisco')
 
-	def test_movies_index_post(self):
+	def test_employees_index_post(self):
 		self.reset_data()
 
 		e = {}
@@ -68,7 +68,7 @@ class TestEmployees(unittest.TestCase):
 		self.assertEqual(resp['Year'], e['Year'])
 		self.assertEqual(resp['Agency'], e['Agency'])
 
-	def test_movies_index_delete(self):
+	def test_employees_index_delete(self):
 		self.reset_data()
 		
 		e = {}
@@ -80,8 +80,8 @@ class TestEmployees(unittest.TestCase):
 		r = requests.get(self.EMPLOYEES_URL)
 		self.assertTrue(self.is_json(r.content.decode()))
 		resp = json.loads(r.content.decode())
-		movies = resp['employees']
-		self.assertFalse(movies)
+		employees = resp['employees']
+		self.assertFalse(employees)
 
 if __name__ == "__main__":
 	unittest.main()
