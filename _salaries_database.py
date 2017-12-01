@@ -76,6 +76,10 @@ class _salaries_database:
 
     # Delete the employee specified by eid
     def delete_employee(self, eid):
+        if self.employees.get(eid):
+            current_employee = self.employees[eid]
+            self.jobs[current_employee['JobTitle']].remove(current_employee['Id'])
+
         del self.employees[eid]
 
     # Clear self.smployee
@@ -121,7 +125,7 @@ class _salaries_database:
 
     # Returns a list of eid of employee under the job title
     def get_job(self, JobTitle):
-        return self.jobs[JobTitle]
+        return self.jobs.get(JobTitle)
 
     # Return average salary of a job
     def get_average_totalpay(self, JobTitle):
