@@ -1,0 +1,8 @@
+We are using port number 51076 to run our webserver. Our webserver allows you to get an entire listing of San Francisco employees, search individual employee information given an employee id, search for a listing of all jobs, employees based on job type, and then certain special salary info under a salary section.
+
+To get all employees : /employees/
+To get a specific employee: /employees/54
+To get a listing of jobs: /jobs/
+To get employees with a certain job: /jobs/[JobTitle]   (JobTitle has to be url encoded)
+To get highest salary: /salaries/
+To get average salary for a particular job: /salaries/[JobTitle]     (JobTitle has to be url encoded)
