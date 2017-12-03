@@ -79,6 +79,8 @@ class _salaries_database:
         if self.employees.get(eid):
             current_employee = self.employees[eid]
             self.jobs[current_employee['JobTitle']].remove(current_employee['Id'])
+            if len(self.jobs[current_employee['JobTitle']]) == 0:
+                del self.jobs[current_employee['JobTitle']]
 
         del self.employees[eid]
 
