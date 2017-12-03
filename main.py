@@ -234,14 +234,14 @@ def start_service():
                         controller=employeeController,
                         action='GET', conditions=dict(method=['GET']))
     dispatcher.connect('employees_get_options', '/employees/',
-                        controller=_options_controller,
+                        controller=optionsController,
                         action='OPTIONS', conditions=dict(method=['OPTIONS']))
 
     dispatcher.connect('employees_get_key', '/employees/:eid',
                         controller=employeeKeyController,
                         action='GET', conditions=dict(method=['GET']))
     dispatcher.connect('employees_get_key_options', '/employees/:eid',
-                        controller=_options_controller,
+                        controller=optionsController,
                         action='OPTIONS', conditions=dict(method=['OPTIONS']))
 
     dispatcher.connect('employees_post', '/employees/',
@@ -261,17 +261,16 @@ def start_service():
     dispatcher.connect('employees_delete', '/employees/',
                         controller=employeeController,
                         action='DELETE', conditions=dict(method=['DELETE']))
-    dispatcher.connect('employees_delete', '/employees/',
+    dispatcher.connect('employees_delete_options', '/employees/',
                         controller=optionsController,
                         action='OPTIONS', conditions=dict(method=['OPTIONS']))
 
     dispatcher.connect('employees_delete_key', '/employees/:eid',
                         controller=employeeKeyController,
                         action='DELETE', conditions=dict(method=['DELETE']))
-    """
-    dispatcher.connect('employees_delete_key', '/employees/:eid',
+    dispatcher.connect('employees_delete_key_options', '/employees/:eid',
                         controller=optionsController,
-                        action='OPTIONS', conditions=dict(method=['OPTIONS']))"""
+                        action='OPTIONS', conditions=dict(method=['OPTIONS']))
 
     # JobsController -------------------------
     dispatcher.connect('jobs_get', '/jobs/',
@@ -291,7 +290,7 @@ def start_service():
     dispatcher.connect('jobs_delete_key', '/jobs/:jobtitle',
                         controller=jobKeyController,
                         action='DELETE', conditions=dict(method=['DELETE']))
-    dispatcher.connect('jobs_delete_key', '/jobs/:jobtitle',
+    dispatcher.connect('jobs_delete_key_options', '/jobs/:jobtitle',
                         controller=optionsController,
                         action='OPTIONS', conditions=dict(method=['OPTIONS']))
 
@@ -299,14 +298,14 @@ def start_service():
     dispatcher.connect('salaries_get', '/salaries/',
                         controller=salaryController,
                         action='GET', conditions=dict(method=['GET']))
-    dispatcher.connect('salaries_get', '/salaries/',
+    dispatcher.connect('salaries_get_options', '/salaries/',
                         controller=optionsController,
                         action='OPTIONS', conditions=dict(method=['OPTIONS']))
 
     dispatcher.connect('salaries_get_key', '/salaries/:jobtitle',
                         controller=salaryKeyController,
                         action='GET', conditions=dict(method=['GET']))
-    dispatcher.connect('salaries_get_key', '/salaries/:jobtitle',
+    dispatcher.connect('salaries_get_key_options', '/salaries/:jobtitle',
                         controller=optionsController,
                         action='OPTIONS', conditions=dict(method=['OPTIONS']))
     
@@ -314,7 +313,7 @@ def start_service():
     dispatcher.connect('reset', '/reset/',
                         controller=resetController,
                         action='PUT', conditions=dict(method=['PUT']))
-    dispatcher.connect('reset', '/reset/',
+    dispatcher.connect('reset_options', '/reset/',
                         controller=optionsController,
                         action='OPTIONS', conditions=dict(method=['OPTIONS']))
     conf = {
