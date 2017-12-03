@@ -201,6 +201,14 @@ class ResetController(object):
 
         return json.dumps(output)
 
+class _options_controller(object):
+    def OPTIONS(self, *args, **kwargs):
+        return ""
+
+def CORS():
+    cherrypy.response.headers["Access-Control-Allow-Origin"] = "*"
+    cherrypy.response.headers["Access-Control-Allow-Methods"] = "GET, PUT, POST, DELETE"
+    cherrypy.response.headers["Access-Control-Allow-Credentials"] = "*"
 
 def start_service():
     # Create an instance of database
@@ -217,40 +225,106 @@ def start_service():
     salaryController = SalaryController(sdb=sdb)
     salaryKeyController = SalaryKeyController(sdb=sdb)
     resetController = ResetController(sdb=sdb)
+    optionsController = _options_controller()
 
     dispatcher = cherrypy.dispatch.RoutesDispatcher()
 
-    # Connect controllers
-    dispatcher.connect('employees_get', '/employees/', controller=employeeController, action='GET', conditions=dict(method=['GET']))
+    # EmployeesController --------------------
+    dispatcher.connect('employees_get', '/employees/',
+                        controller=employeeController,
+                        action='GET', conditions=dict(method=['GET']))
+    dispatcher.connect('employees_get_options', '/employees/',
+                        controller=_options_controller,
+                        action='OPTIONS', conditions=dict(method=['OPTIONS']))
 
-    dispatcher.connect('employees_get_key', '/employees/:eid', controller=employeeKeyController, action='GET', conditions=dict(method=['GET']))
+    dispatcher.connect('employees_get_key', '/employees/:eid',
+                        controller=employeeKeyController,
+                        action='GET', conditions=dict(method=['GET']))
+    dispatcher.connect('employees_get_key_options', '/employees/:eid',
+                        controller=_options_controller,
+                        action='OPTIONS', conditions=dict(method=['OPTIONS']))
 
-    dispatcher.connect('employees_post', '/employees/', controller=employeeController, action='POST', conditions=dict(method=['POST']))
+    dispatcher.connect('employees_post', '/employees/',
+                        controller=employeeController,
+                        action='POST', conditions=dict(method=['POST']))
+    dispatcher.connect('employees_post_options', '/employees/',
+                        controller=_options_controller,
+                        action='OPTIONS', conditions=dict(method=['OPTIONS']))
 
-    dispatcher.connect('employees_put_key', '/employees/:eid', controller=employeeKeyController, action='PUT', conditions=dict(method=['PUT']))
+    dispatcher.connect('employees_put_key', '/employees/:eid',
+                        controller=employeeKeyController,
+                        action='PUT', conditions=dict(method=['PUT']))
+    dispatcher.connect('employees_put_key_options', '/employees/:eid',
+                        controller=_options_controller,
+                        action='OPTIONS', conditions=dict(method=['OPTIONS']))
 
-    dispatcher.connect('employees_delete', '/employees/', controller=employeeController, action='DELETE', conditions=dict(method=['DELETE']))
+    dispatcher.connect('employees_delete', '/employees/',
+                        controller=employeeController,
+                        action='DELETE', conditions=dict(method=['DELETE']))
+    dispatcher.connect('employees_delete', '/employees/',
+                        controller=_options_controller,
+                        action='OPTIONS', conditions=dict(method=['OPTIONS']))
 
-    dispatcher.connect('employees_delete_key', '/employees/:eid', controller=employeeKeyController, action='DELETE', conditions=dict(method=['DELETE']))
+    dispatcher.connect('employees_delete_key', '/employees/:eid',
+                        controller=employeeKeyController,
+                        action='DELETE', conditions=dict(method=['DELETE']))
+    dispatcher.connect('employees_delete_key', '/employees/:eid',
+                        controller=_options_controller,
+                        action='OPTIONS', conditions=dict(method=['OPTIONS']))
 
-    dispatcher.connect('jobs_get', '/jobs/', controller=jobController, action='GET', conditions=dict(method=['GET']))
+    # JobsController -------------------------
+    dispatcher.connect('jobs_get', '/jobs/',
+                        controller=jobController,
+                        action='GET', conditions=dict(method=['GET']))
+    dispatcher.connect('jobs_get_options', '/jobs/',
+                        controller=_options_controller,
+                        action='OPTIONS', conditions=dict(method=['OPTIONS']))
 
-    dispatcher.connect('jobs_get_key', '/jobs/:jobtitle', controller=jobKeyController, action='GET', conditions=dict(method=['GET']))
+    dispatcher.connect('jobs_get_key', '/jobs/:jobtitle',
+                        controller=jobKeyController,
+                        action='GET', conditions=dict(method=['GET']))
+    dispatcher.connect('jobs_get_key_options', '/jobs/:jobtitle',
+                        controller=_options_controller,
+                        action='OPTIONS', conditions=dict(method=['OPTIONS']))
 
-    dispatcher.connect('jobs_delete_key', '/jobs/:jobtitle', controller=jobKeyController, action='DELETE', conditions=dict(method=['DELETE']))
+    dispatcher.connect('jobs_delete_key', '/jobs/:jobtitle',
+                        controller=jobKeyController,
+                        action='DELETE', conditions=dict(method=['DELETE']))
+    dispatcher.connect('jobs_delete_key', '/jobs/:jobtitle',
+                        controller=_options_controller,
+                        action='OPTIONS', conditions=dict(method=['OPTIONS']))
 
-    dispatcher.connect('salaries_get', '/salaries/', controller=salaryController, action='GET', conditions=dict(method=['GET']))
+    # SalariesController ---------------------
+    dispatcher.connect('salaries_get', '/salaries/',
+                        controller=salaryController,
+                        action='GET', conditions=dict(method=['GET']))
+    dispatcher.connect('salaries_get', '/salaries/',
+                        controller=_options_controller,
+                        action='OPTIONS', conditions=dict(method=['OPTIONS']))
 
-    dispatcher.connect('salaries_get_key', '/salaries/:jobtitle', controller=salaryKeyController, action='GET', conditions=dict(method=['GET']))
-
-    dispatcher.connect('reset', '/reset/', controller=resetController, action='PUT', conditions=dict(method=['PUT']))
-
+    dispatcher.connect('salaries_get_key', '/salaries/:jobtitle',
+                        controller=salaryKeyController,
+                        action='GET', conditions=dict(method=['GET']))
+    dispatcher.connect('salaries_get_key', '/salaries/:jobtitle',
+                        controller=_options_controller,
+                        action='OPTIONS', conditions=dict(method=['OPTIONS']))
+    
+    # ResetController -----------------------
+    dispatcher.connect('reset', '/reset/',
+                        controller=resetController,
+                        action='PUT', conditions=dict(method=['PUT']))
+    dispatcher.connect('reset', '/reset/',
+                        controller=_options_controller,
+                        action='OPTIONS', conditions=dict(method=['OPTIONS']))
     conf = {
         'global': {
                 'server.socket_host': 'student04.cse.nd.edu',
                 'server.socket_port': 51076
         },
-        '/': {'request.dispatch': dispatcher}
+        '/': {
+            'request.dispatch': dispatcher,
+            'tools.CORS.on': True
+        }
     }
 
     cherrypy.config.update(conf)
@@ -258,4 +332,5 @@ def start_service():
     cherrypy.quickstart(app)
 
 if __name__ == '__main__':
+    cherrypy.tools.CORS = cherrypy.Tool('before_finalize', CORS)
     start_service()
