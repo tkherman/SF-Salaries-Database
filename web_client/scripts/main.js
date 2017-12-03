@@ -100,3 +100,20 @@ function JobQuery() {
         alert("Sending request to get Ids for specified job...");
     }
 }
+
+function BestSalaryQuery() {
+    var xhr = new XMLHttpRequest();
+
+    xhr.open("GET", "http://student04.cse.nd.edu:51076/salaries/", true);
+
+    xhr.onload = function() {
+        var text_field = document.getElementById("BestSalary");
+        text_field.innerHTML = xhr.responseText;
+    }
+
+    xhr.onerror = function() {
+        console.error(xhr.statusText);
+    }
+
+    xhr.send(null);
+}
