@@ -70,7 +70,7 @@ class TestEmployees(unittest.TestCase):
 
 	def test_employees_index_delete(self):
 		self.reset_data()
-		
+
 		e = {}
 		r = requests.delete(self.EMPLOYEES_URL, data = json.dumps(e))
 		self.assertTrue(self.is_json(r.content.decode()))
