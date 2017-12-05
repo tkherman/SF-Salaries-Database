@@ -81,7 +81,9 @@ function GetIDS(JobTitle) {
 
     xhr.onload = function() {
         var text_field = document.getElementById("JobIdList");
-        text_field.innerHTML = xhr.responseText;
+        var getjobresponse = JSON.parse(xhr.responseText);
+        var ids = getjobresponse.Ids
+        text_field.innerHTML = JobTitle + " IDs: " + ids;
     }
 
     xhr.onerror = function() {
@@ -108,7 +110,10 @@ function BestSalaryQuery() {
 
     xhr.onload = function() {
         var text_field = document.getElementById("BestSalary");
-        text_field.innerHTML = xhr.responseText;
+        var getbest = JSON.parse(xhr.responseText);
+        var salary = getbest.BestSalary;
+        var job = getbest.BestJob;
+        text_field.innerHTML = "Job Title: " + job + "<br />" + "Salary: " + salary;
     }
 
     xhr.onerror = function() {
@@ -126,7 +131,12 @@ function GetEmployeeInfo(Id) {
     xhr.onload = function() {
         //var text_field = document.getElementById("BestSalary");
         var text_field = document.getElementById("EmployeeInfo");
-        text_field.innerHTML = xhr.responseText;
+        var getempresponse = JSON.parse(xhr.responseText);
+        var name = getempresponse.EmployeeName;
+        var jobTitle = getempresponse.JobTitle;
+        var basePay = getempresponse.BasePay;
+        var totalPay = getempresponse.TotalPay;
+        text_field.innerHTML = "Name: " + name + "<br />" + "Job Title: " + jobTitle + "<br />" + "Base Pay: " + basePay + "<br />" + "Total Pay: " + totalPay; 
     }
 
     xhr.onerror = function() {

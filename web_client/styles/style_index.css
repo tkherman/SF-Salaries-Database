@@ -2,7 +2,8 @@ html, body {
 	font-family: 'Ubuntu', sans-serif;
 	margin: 0;
 	padding: 0;
-	background: url(http://wallpapersdsc.net/wp-content/uploads/2016/09/San-Francisco-Widescreen.jpg) no-repeat center center;
+	background: url(https://i.imgur.com/Kzyb3BE.gif)center center;
+	/*background: url(https://i.imgur.com/zthrchM.gif) center center;*/
 }
 
 h2 {
@@ -22,7 +23,7 @@ h2 {
 	opacity: 0.75;
 	border-radius: 30px;
 	padding: 20px;
-	height: 75%;
+	height: 80%;
 }
 
 .column {
@@ -37,5 +38,5 @@ h2 {
 
 .container {
 	margin: auto;
-	width: 100%;
+	width: 80%;
 }
