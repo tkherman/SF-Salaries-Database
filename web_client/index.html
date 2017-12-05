@@ -4,50 +4,68 @@
     <head>
         <meta charset="utf-8">
         <title>San Francisco Salaries Database</title>
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+        <link href="styles/style_index.css" type="text/css" rel="stylesheet">
     </head>
 
     <body>
         <script type="text/javascript" src="scripts/json2.js"></script>
         <script type="text/javascript" src="scripts/paradigm.js"></script>
         <script type="text/javascript" src="scripts/main.js"></script>
-        <p>-----Employee-----</p>
-        <br>
-        <p>-----Add Employee-----</p>
-        <form name="AddForm" onsubmit="AddEmployee()">
-            Id:<br>
-            <input type="text" name="Id" id="IdEntry"><br>
-            EmployeeName:<br>
-            <input type="text" name="EmployeeName" id="EmployeeNameEntry"><br>
-            JobTitle:<br>
-            <input type="text" name="JobTitle" id="JobTitleEntry"><br>
-            BasePay:<br>
-            <input type="text" name="BasePay" id="BasePayEntry"><br>
-            TotalPay:<br>
-            <input type="text" name="TotalPay" id="TotalPayEntry"><br>
-            Year:<br>
-            <input type="text" name="Year" id="YearEntry"><br>
-            Agency:<br>
-            <input type="text" name="Agency" id="AgencyEntry"><br>
-            <input type="submit" value="Submit"><br>
-        </form>
-        <br>
-        <p>-----Drop Employee-----</p>
-        <form name="DropForm" onsubmit="DropEmployee()">
-            Id:<input type="text" name="Id" id="IdDrop"><br>
-            <input type="submit" value="Submit"><br>
-        </form>
-
-        <br>
-        <br>
-        <p>-----Query Jobs-----</p>
-        <form name="JobForm" onsubmit="JobQuery()">
-            Jobname: <input type="text" name="Jobname" id="JobNameEntry"><br>
-        </form>
-        <button id="queryJobSubmit" onmouseup="JobQuery()">Submit</button>
-        <p id="JobIdList"></p>
-        <br>
-        <br>
-        <p>-----Best Salary Job-----</p>
-        <button id="updateBestSalary" onmouseup="BestSalaryQuery()">Update</button>
-        <p id="BestSalary"></p>
+        <div class="header">
+            <h1>San Francisco Salaries Database</h1>
+        </div>    
+        <div class="main">
+            <div class="column" id="employee">
+                <div class="container">
+                    <h2>Modify Database</h2>
+                </div>
+                <div class="container">
+                    <h4>Add Employee</h4>
+                    <form name="AddForm" onsubmit="AddEmployee()">
+                        Id:<br>
+                        <input type="text" name="Id" id="IdEntry"><br>
+                        EmployeeName:<br>
+                        <input type="text" name="EmployeeName" id="EmployeeNameEntry"><br>
+                        JobTitle:<br>
+                        <input type="text" name="JobTitle" id="JobTitleEntry"><br>
+                        BasePay:<br>
+                        <input type="text" name="BasePay" id="BasePayEntry"><br>
+                        TotalPay:<br>
+                        <input type="text" name="TotalPay" id="TotalPayEntry"><br>
+                        Year:<br>
+                        <input type="text" name="Year" id="YearEntry"><br>
+                        Agency:<br>
+                        <input type="text" name="Agency" id="AgencyEntry"><br>
+                        <input type="submit" value="Submit"><br>
+                    </form>
+                </div>
+                <div class="container">
+                    <h4>Drop Employee</h4>
+                    <form name="DropForm" onsubmit="DropEmployee()">
+                        Id:<input type="text" name="Id" id="IdDrop"><br>
+                        <input type="submit" value="Submit"><br>
+                    </form>
+                </div>
+            </div>
+            <div class="column" id="job">
+                <div class="container">
+                    <h2>Search Database</h2>
+                </div>
+                <div class="container">
+                    <h4>Query Jobs</h4>
+                    <form name="JobForm" onsubmit="JobQuery()">
+                        Jobname: <input type="text" name="Jobname" id="JobNameEntry"><br>
+                    </form>
+                    <button id="queryJobSubmit" onmouseup="JobQuery()">Submit</button>
+                    <p id="JobIdList"></p>
+                </div>
+                <div class="container">
+                    <h4>Best Salary Job</h4>
+                    <button id="updateBestSalary" onmouseup="BestSalaryQuery()">Update</button>
+                    <p id="BestSalary"></p>
+                </div>
+            </div>
+        </div>
     <body>
+</html>

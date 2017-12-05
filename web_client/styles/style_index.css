@@ -1,0 +1,41 @@
+html, body {
+	font-family: 'Ubuntu', sans-serif;
+	margin: 0;
+	padding: 0;
+	background: url(http://wallpapersdsc.net/wp-content/uploads/2016/09/San-Francisco-Widescreen.jpg) no-repeat center center;
+}
+
+h2 {
+	text-align: center;
+}
+
+.header {
+	text-align: center;
+	margin-top: 20;
+	color: #e2ddd7;
+}
+
+.main {
+	width: 60%;
+	margin: auto;
+	background: #b7afa7;
+	opacity: 0.75;
+	border-radius: 30px;
+	padding: 20px;
+	height: 75%;
+}
+
+.column {
+	width: 49%;
+	height: 100%;
+	float: left;
+}
+
+#employee {
+	border-right: 2px dashed red;
+}
+
+.container {
+	margin: auto;
+	width: 80%;
+}
