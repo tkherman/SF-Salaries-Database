@@ -1,0 +1,3 @@
+Readme File for Final Project Elements (Webservice)
+
+To start the webservice, simply run python3 main.py from the dropbox where the file is located. The UI is a website that allows you to perform multiple actions with the database. The left column is used to add and remove data from the database, and the right column is used to search the database. The design allows for the user to follow fairly straightforward use of the website, with clearly labeled input descriptions and function placement. The data type for searching on ID is simply an int... just type the number. For searching the jobs database on job title, you will simply put the name of the job, which is often in all capitals.
