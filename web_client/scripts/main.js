@@ -117,3 +117,30 @@ function BestSalaryQuery() {
 
     xhr.send(null);
 }
+
+function GetEmployeeInfo(Id) {
+    var xhr = new XMLHttpRequest();
+
+    xhr.open("GET", "http://student04.cse.nd.edu:51076/employees/" + Id, true);
+
+    xhr.onload = function() {
+        //var text_field = document.getElementById("BestSalary");
+        var text_field = document.getElementById("EmployeeInfo");
+        text_field.innerHTML = xhr.responseText;
+    }
+
+    xhr.onerror = function() {
+        console.error(xhr.statusText);
+    }
+
+    xhr.send(null);
+}
+
+function EmployeeQuery() {
+    var Id = document.forms["EmployeeForm"].getElementsByTagName("input")[0].value;
+    console.log(Id);
+    if (parseFloat(Id) != NaN) {
+        GetEmployeeInfo(Id);
+        alert("Sending request to get info for specified employee...");
+    }
+}

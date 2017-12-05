@@ -14,7 +14,7 @@
         <script type="text/javascript" src="scripts/main.js"></script>
         <div class="header">
             <h1>San Francisco Salaries Database</h1>
-        </div>    
+        </div>
         <div class="main">
             <div class="column" id="employee">
                 <div class="container">
@@ -64,6 +64,14 @@
                     <h4>Best Salary Job</h4>
                     <button id="updateBestSalary" onmouseup="BestSalaryQuery()">Update</button>
                     <p id="BestSalary"></p>
+                </div>
+                <div class="container">
+                    <h4>Query Employees</h4>
+                    <form name="EmployeeForm">
+                        Id: <input type="text" name="Jobname" id="JobNameEntry"><br>
+                    </form>
+                    <button id="queryEmployeeSubmit" onmouseup="EmployeeQuery()">Submit</button>
+                    <p id="EmployeeInfo"></p>
                 </div>
             </div>
         </div>
